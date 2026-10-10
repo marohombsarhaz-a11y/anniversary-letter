@@ -1,0 +1,571 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Favorite Person ❤️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=Special+Elite&display=swap');
+
+:root {
+  --paper: #f8edda;
+  --brown: #75513d;
+  --pink: #d88f98;
+  --dark: #49352b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--dark);
+  font-family: 'Playfair Display', serif;
+  background:
+    radial-gradient(ellipse at 15% 15%, #fff0d7 0%, transparent 42%),
+    radial-gradient(ellipse at 90% 85%, #e8c9b1 0%, transparent 45%),
+    #d8bba5;
+  overflow-x: hidden;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 30px 16px 60px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #88634e;
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(36px, 8vw, 62px);
+  text-align: center;
+  font-weight: 600;
+  margin: 12px 0;
+  color: #794e42;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 0 0 30px;
+}
+
+.card {
+  width: min(100%, 680px);
+  padding: clamp(18px, 5vw, 38px);
+  border: 1px solid #d6b99b;
+  border-radius: 5px;
+  background:
+    radial-gradient(ellipse at top left, #fff9ed, transparent 60%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(133, 94, 61, 0.025) 0px,
+      rgba(133, 94, 61, 0.025) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    var(--paper);
+  box-shadow: 0 18px 55px #684b382b;
+  position: relative;
+}
+
+.card::before {
+  content: "✿";
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  color: #b88a73;
+  font-size: 28px;
+  opacity: 0.7;
+}
+
+.envelope-scene {
+  min-height: 270px;
+  display: grid;
+  place-items: center;
+  perspective: 900px;
+}
+
+.envelope {
+  position: relative;
+  width: min(300px, 82vw);
+  height: 185px;
+  border: 0;
+  background: transparent;
+  filter: drop-shadow(0 12px 9px #5c382b28);
+  transition: transform 0.3s;
+}
+
+.envelope:hover {
+  transform: translateY(-5px);
+}
+
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  background: #d9a99a;
+  border-radius: 5px;
+}
+
+.envelope-front {
+  position: absolute;
+  inset: 0;
+  background: #eac1b0;
+  clip-path: polygon(0 100%, 0 0, 50% 58%, 100% 0, 100% 100%);
+}
+
+.envelope-flap {
+  position: absolute;
+  inset: 0;
+  background: #f0cdbb;
+  clip-path: polygon(0 0, 100% 0, 50% 58%);
+  transform-origin: top;
+  transition: transform 0.8s ease;
+  z-index: 3;
+}
+
+.envelope.open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+
+.envelope-paper {
+  position: absolute;
+  left: 7%;
+  top: 12%;
+  width: 86%;
+  height: 76%;
+  background: #fff8e9;
+  padding: 15px 8px;
+  display: grid;
+  place-items: center;
+  color: #80564a;
+  font-family: 'Caveat', cursive;
+  font-size: 23px;
+  transition: transform 0.8s ease;
+  z-index: 2;
+}
+
+.envelope.open .envelope-paper {
+  transform: translateY(-105px);
+}
+
+.seal {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  background: #b95e69;
+  border: 3px solid #d88d91;
+  border-radius: 50%;
+  color: #fff1dc;
+  font-size: 23px;
+  display: grid;
+  place-items: center;
+  z-index: 4;
+  transition: opacity 0.3s;
+}
+
+.envelope.open .seal {
+  opacity: 0;
+}
+
+.open-hint {
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: 24px;
+  margin: 0 0 12px;
+  color: #8b5a52;
+}
+
+.primary-btn, .secondary-btn {
+  display: block;
+  margin: 16px auto 0;
+  border: none;
+  border-radius: 30px;
+  padding: 13px 23px;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.primary-btn {
+  color: white;
+  background: #a65f66;
+  box-shadow: 0 5px 12px #a65f662c;
+}
+
+.primary-btn:hover, .secondary-btn:hover {
+  transform: translateY(-2px);
+}
+
+.secondary-btn {
+  color: #80564a;
+  background: #ead5bf;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.letter {
+  margin-top: 24px;
+  animation: appear 1s ease both;
+}
+
+.letter-title {
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: clamp(32px, 7vw, 48px);
+  color: #965e58;
+  margin: 0 0 20px;
+}
+
+.letter-body {
+  font-size: 15px;
+  line-height: 2;
+  white-space: pre-line;
+  min-height: 120px;
+}
+
+.signature {
+  font-family: 'Caveat', cursive;
+  font-size: 30px;
+  color: #965e58;
+  text-align: right;
+  margin-top: 20px;
+}
+
+.divider {
+  text-align: center;
+  letter-spacing: 8px;
+  color: #c28d84;
+  margin: 28px 0;
+}
+
+.memories {
+  margin-top: 28px;
+}
+
+.section-title {
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: 36px;
+  color: #89564d;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.photo {
+  padding: 9px 9px 35px;
+  background: #fffdf6;
+  box-shadow: 0 6px 18px #684b3821;
+  transform: rotate(-2deg);
+  transition: transform 0.3s;
+}
+
+.photo:nth-child(2) {
+  transform: rotate(2.5deg);
+}
+
+.photo:nth-child(3) {
+  transform: rotate(1.5deg);
+}
+
+.photo:hover {
+  transform: rotate(0) translateY(-4px);
+}
+
+.photo img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  background: #ead7c3;
+}
+
+.photo p {
+  margin: 9px 0 -23px;
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+}
+
+.promise {
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: clamp(26px, 6vw, 38px);
+  line-height: 1.5;
+  color: #945c62;
+  padding: 24px 0 10px;
+}
+
+.footer {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 28px;
+  color: #896b57;
+}
+
+.heart {
+  position: fixed;
+  bottom: -30px;
+  pointer-events: none;
+  z-index: 20;
+  animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(35deg);
+    opacity: 0;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 430px) {
+  .page {
+    padding: 22px 12px 40px;
+  }
+
+  .photo-grid {
+    gap: 12px;
+  }
+
+  .letter-body {
+    font-size: 14px;
+    line-height: 1.9;
+  }
+}
+</style>
+</head>
+
+<body>
+<main class="page">
+
+  <p class="eyebrow">A little something made with love</p>
+  <h1>Happy Anniversary, My Love ♡</h1>
+  <p class="subtitle">
+    A tiny piece of my heart, made just for you.<br>
+    Take your time, baby. This is all for you. 🤎
+  </p>
+
+  <section class="card">
+    <div id="intro">
+      <p class="open-hint">For my favorite person, tap to open. 💌</p>
+
+      <div class="envelope-scene">
+        <button class="envelope" id="envelope"
+          aria-label="Open your love letter">
+          <div class="envelope-back"></div>
+          <div class="envelope-paper">To my one and only...</div>
+          <div class="envelope-flap"></div>
+          <div class="envelope-front"></div>
+          <div class="seal">♥</div>
+        </button>
+      </div>
+
+      <button class="primary-btn" id="openBtn">
+        Open My Letter 💌
+      </button>
+    </div>
+
+    <div id="letterSection" class="letter hidden">
+      <h2 class="letter-title">To the love of my life,</h2>
+
+      <div class="letter-body" id="typedMessage"></div>
+
+      <p class="signature">Forever yours, ♡</p>
+
+      <div class="divider">✿ ♥ ✿</div>
+
+      <section class="memories">
+        <h2 class="section-title">Little pieces of us 📷</h2>
+        <p class="subtitle">
+          Some of my favorite memories are the ones I get to share with you.
+        </p>
+
+        <div class="photo-grid">
+          <!-- Replace these image URLs with your own pictures -->
+          <div class="photo">
+            <img src="https://placehold.co/500x600/f0dfca/8c6252?text=Our+Memory+1"
+                 alt="Our first favorite memory">
+            <p>One of my favorite days ♡</p>
+          </div>
+
+          <div class="photo">
+            <img src="https://placehold.co/500x600/e8cfc0/8c6252?text=Our+Memory+2"
+                 alt="A special memory together">
+            <p>My favorite person 🌷</p>
+          </div>
+
+          <div class="photo">
+            <img src="https://placehold.co/500x600/f3e4d2/8c6252?text=Our+Memory+3"
+                 alt="Another special memory">
+            <p>Us, always 💗</p>
+          </div>
+
+          <div class="photo">
+            <img src="https://placehold.co/500x600/e6d1ba/8c6252?text=Our+Memory+4"
+                 alt="A precious moment">
+            <p>More memories to come ♡</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider">✿ ♥ ✿</div>
+
+      <div class="promise">
+        If I had to choose again,<br>
+        in every lifetime,<br>
+        I'd still choose you. ❤️
+      </div>
+
+      <p class="subtitle">
+        Happy anniversary, baby.<br>
+        I love you more than words can say. ♡
+      </p>
+
+      <button class="secondary-btn" id="heartBtn">
+        Send you a little more love 💗
+      </button>
+    </div>
+  </section>
+
+  <p class="footer">Made with love, just for you. ♡</p>
+</main>
+
+<script>
+// ✏️ PERSONALIZE THIS MESSAGE!
+const loveMessage = `Happy anniversary, my love! ❤️
+
+Sometimes I wish I could put into words just how much you mean to me. You make ordinary days feel special, and you give me so many reasons to smile.
+
+As an IT student, I spend my time learning how to build things, solve problems, and fix errors. But one thing I never want to change is having you in my life.
+
+I'm not the best at editing videos or making beautiful pictures, but I wanted to create something special for you in my own little way. Every part of this letter is a reminder that you are loved, appreciated, and important to me.
+
+Thank you for being you. Thank you for the memories, the laughter, the comfort, and even the little moments that might seem ordinary but mean everything to me.
+
+I know we won't always have perfect days. We might have misunderstandings and challenges, but I hope we keep choosing each other, listening to each other, and growing together.
+
+No matter what comes our way, I want to keep making memories with you, celebrating your happiness, supporting your dreams, and reminding you how precious you are to me.
+
+If I could go back and choose all over again, I would still find my way to you.
+
+Happy anniversary, baby. I love you, today and in all the days still waiting for us. ❤️`;
+
+const envelope = document.getElementById("envelope");
+const openBtn = document.getElementById("openBtn");
+const intro = document.getElementById("intro");
+const letterSection = document.getElementById("letterSection");
+const typedMessage = document.getElementById("typedMessage");
+const heartBtn = document.getElementById("heartBtn");
+
+let opened = false;
+let typingTimer;
+
+// Open the envelope and reveal the letter
+function openLetter() {
+  if (opened) return;
+  opened = true;
+
+  envelope.classList.add("open");
+  openBtn.textContent = "Opening your letter... 💗";
+  openBtn.disabled = true;
+
+  setTimeout(() => {
+    intro.classList.add("hidden");
+    letterSection.classList.remove("hidden");
+    typeMessage();
+    burstHearts(18);
+  }, 1000);
+}
+
+envelope.addEventListener("click", openLetter);
+openBtn.addEventListener("click", openLetter);
+
+// Typewriter effect
+function typeMessage() {
+  let i = 0;
+  typedMessage.textContent = "";
+
+  function typeNext() {
+    if (i < loveMessage.length) {
+      typedMessage.textContent += loveMessage.charAt(i);
+      i++;
+      typingTimer = setTimeout(typeNext, 24);
+    }
+  }
+
+  typeNext();
+}
+
+// Floating hearts
+function createHeart() {
+  const heart = document.createElement("span");
+  heart.className = "heart";
+  heart.textContent = ["♥", "♡", "💗", "💕", "✿"][
+    Math.floor(Math.random() * 5)
+  ];
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (14 + Math.random() * 20) + "px";
+  heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+  heart.style.opacity = 0.5 + Math.random() * 0.5;
+
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 8500);
+}
+
+function burstHearts(count = 10) {
+  for (let i = 0; i < count; i++) {
+    setTimeout(createHeart, i * 120);
+  }
+}
+
+heartBtn.addEventListener("click", () => {
+  burstHearts(25);
+  heartBtn.textContent = "Sending you all my love! 💖";
+});
+
+// A few gentle hearts drifting in the background
+setInterval(() => {
+  if (opened) createHeart();
+}, 1400);
+</script>
+</body>
+</html>
